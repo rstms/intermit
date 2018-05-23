@@ -3,7 +3,7 @@
 Testing tool used with djb's tcpserver to introduce intermittent delays in server output
 
 
-See ucspi-tcp documentaiton at [http://cr.yp.to/ucspi-tcp.html](http://cr.yp.to/ucspi-tcp.html)
+See the ucspi-tcp documentation at [http://cr.yp.to/ucspi-tcp.html](http://cr.yp.to/ucspi-tcp.html)
 
  - usage is similar to recordio
 

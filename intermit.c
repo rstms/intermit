@@ -15,9 +15,12 @@ int main(int argc, char *argv[])
     int i;
     int len;
 
-    int delay=0;
+    fprintf(stderr, "intermit testing mode inserting random pauses in child program's output\n");
+
+    int delay=1000;
     int percent=0;
     int seed=time(NULL);
+    int verbose=0;
 
     if (argc < 1) {
 	fprintf(stderr, "Usage: %s <command>\n", argv[0]);
@@ -28,20 +31,24 @@ int main(int argc, char *argv[])
       switch(argv[1][1]) {
         case 's':
 	    seed = atoi(argv[1]+2);
-	    fprintf(stderr, "seed: %d\n", seed);
 	    srandom(seed);
 	    break;
         case 'p':
 	    percent = atoi(argv[1]+2);
-	    fprintf(stderr, "percent: %d\n", percent);
 	    break;
 	case 'd':
 	    delay  = atoi(argv[1]+2);
-	    fprintf(stderr, "delay: %d\n", delay);
 	    break;
+	case 'v':
+	    verbose = 1;
       }
       argv++;
     }
+
+    fprintf(stderr, "seed: %d\n", seed);
+    fprintf(stderr, "percent: %d\n", percent);
+    fprintf(stderr, "delay: %d\n", delay);
+    fprintf(stderr, "verbose: %d\n", verbose);
 
     char **args;
     if (!(args = calloc(sizeof(char *), argc + 1))) {
@@ -179,9 +186,11 @@ int main(int argc, char *argv[])
 			exit(EXIT_FAILURE);
 		    } else if (len > 0) {
 			if (random() % 100 <= percent) {
-			    fprintf(stderr, ".");
+			    if(verbose)
+			        fprintf(stderr, "pause\n");
 			    usleep(delay * 1000);
-			    fprintf(stderr, "o");
+			    if(verbose)
+			        fprintf(stderr, "resume\n");
 			}
 			if (write(STDOUT_FILENO, buf, len) == -1) {
 			    perror("write pipep2c");

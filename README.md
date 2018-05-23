@@ -7,15 +7,16 @@ See ucspi-tcp documentaiton at [http://cr.yp.to/ucspi-tcp.html](http://cr.yp.to/
 
  - usage is similar to recordio
 
-Usage: intermit [-pPERCENT] [-dDELAY] [-sSEED] prog
+Usage: intermit [-pPERCENT] [-dDELAY] [-sSEED] [-v] prog
 
 intermit runs prog. Optionally, a percentage of the reads of prog's output will be delayed by the delay value.
 
 ## Parameters
 ```
--p percent of reads which will be delayed
--d delay in milliseconds
--s random seed 
+-p percent of reads which will be delayed (default is 0)
+-d delay in milliseconds (default is 1 second delay)
+-s random seed (default seeds to time()) 
+-v verbose mode (emit "pause" and "resume" on standard error)
 ```
 
 ## Example:
@@ -31,5 +32,9 @@ The following command will introduce 3 second delays on 50% of the output:
 tcpserver 0 10101 intermit -p50 -d3000 serverbinary arg1 arg2
 ```
 
-The output delay is triggered upon each read system call, so it can appear at arbitrary locations in the data stream.
+The output delay trigger condition is checked on each read system call, so it can occur at arbitrary locations in the data stream.
+
+## Note
+
+This is intended for debugging client errors or regression testing.  It has no business whatsoever in a production system.
 

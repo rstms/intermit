@@ -11,6 +11,7 @@ Usage: intermit [-pPERCENT] [-dDELAY] [-sSEED] [-v] prog
 
 intermit runs prog. Optionally, a percentage of the reads of prog's output will be delayed by the delay value.
 
+
 ## Parameters
 ```
 -p percent of reads which will be delayed (default is 0)
@@ -33,6 +34,14 @@ tcpserver 0 10101 intermit -p50 -d3000 serverbinary arg1 arg2
 ```
 
 The output delay trigger condition is checked on each read system call, so it can occur at arbitrary locations in the data stream.
+
+## Installation
+
+Clone the repository, then issue the following commands in the project directory:
+```
+make 
+sudo make install
+```  
 
 ## Note
 

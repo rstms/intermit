@@ -14,7 +14,7 @@ intermit runs prog. Optionally, a percentage of the reads of prog's output will 
 
 ## Parameters
 ```
--p percent of reads which will be delayed (default is 0)
+-p (floating point) percent of reads which will be delayed (default is 0)
 -d delay in milliseconds (default is 1 second delay)
 -s random seed (default seeds to time()) 
 -v verbose mode (emit "pause" and "resume" on standard error)

@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 	    "intermit testing mode inserting random pauses in child program's output\n");
 
     int delay = 1000;
-    int percent = 0;
+    double percent = 0.0;
     int seed = time(NULL);
     int verbose = 0;
 
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 	    seed = atoi(argv[1] + 2);
 	    break;
 	case 'p':
-	    percent = atoi(argv[1] + 2);
+	    percent = atof(argv[1] + 2);
 	    break;
 	case 'd':
 	    delay = atoi(argv[1] + 2);
@@ -45,9 +45,9 @@ int main(int argc, char *argv[])
 	argv++;
     }
 
-    srandom(seed);
+    srand48((long)seed);
     fprintf(stderr, "seed: %d\n", seed);
-    fprintf(stderr, "percent: %d\n", percent);
+    fprintf(stderr, "percent: %f\n", percent);
     fprintf(stderr, "delay: %d\n", delay);
     fprintf(stderr, "verbose: %d\n", verbose);
 
@@ -186,7 +186,7 @@ int main(int argc, char *argv[])
 			perror("pipec2p read");
 			exit(EXIT_FAILURE);
 		    } else if (len > 0) {
-			if (random() % 100 <= percent) {
+			if (drand48() <= percent) {
 			    if (verbose)
 				fprintf(stderr, "pause\n");
 			    usleep(delay * 1000);
